@@ -21,11 +21,18 @@ class MusicMonitor {
         var error: NSDictionary?
         if let appleScript = NSAppleScript(source: script) {
             let result = appleScript.executeAndReturnError(&error)
+            if let err = error {
+                print("AppleScript error: \(err)")
+            }
             if let stringValue = result.stringValue, !stringValue.isEmpty {
                 let parts = stringValue.components(separatedBy: "|||")
                 if parts.count == 4 {
-                    return Track(name: parts[0], artist: parts[1], album: parts[2], duration: Double(parts[3]))
+                    let track = Track(name: parts[0], artist: parts[1], album: parts[2], duration: Double(parts[3]))
+                    print("Track detected: \(track.name) by \(track.artist)")
+                    return track
                 }
+            } else {
+                print("AppleScript returned empty result (nothing playing or access denied)")
             }
         }
         return nil

@@ -67,6 +67,7 @@ class ScrobblerManager: ObservableObject {
     
     private func checkTrack() async {
         if let track = MusicMonitor.getCurrentTrack() {
+            print("Manager: Setting localNowPlaying to \(track.name)")
             self.localNowPlaying = track
             let trackId = "\(track.artist)-\(track.name)"
             

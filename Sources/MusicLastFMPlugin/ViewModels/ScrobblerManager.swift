@@ -112,7 +112,12 @@ class ScrobblerManager: ObservableObject {
         }
     }
     
-    struct EmptyResponse: Decodable {}
+    struct EmptyResponse: Decodable {
+        // Last.fm POST methods sometimes return status="ok" or similar
+        // We make it flexible to avoid decoding errors
+        init(from decoder: Decoder) throws {}
+        init() {}
+    }
     
     private func sendScrobbleToAPI(track: Track, timestamp: Date) {
         guard isAuthenticated, !sessionKey.isEmpty else { return }

@@ -13,7 +13,7 @@ class LastFMService {
     private let baseURL = URL(string: "https://ws.audioscrobbler.com/2.0/")!
     
     func generateSignature(params: [String: String]) -> String {
-        let sortedKeys = params.keys.sorted()
+        let sortedKeys = params.keys.sorted().filter { $0 != "api_sig" && $0 != "format" && $0 != "callback" }
         var sigString = ""
         for key in sortedKeys {
             sigString += "\(key)\(params[key]!)"
@@ -37,6 +37,9 @@ class LastFMService {
             request.httpBody = components.percentEncodedQuery?.data(using: .utf8)
             request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
             let (data, _) = try await URLSession.shared.data(for: request)
+            if let responseString = String(data: data, encoding: .utf8) {
+                print("Last.fm Response: \(responseString)")
+            }
             return try JSONDecoder().decode(T.self, from: data)
         } else {
             var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)!

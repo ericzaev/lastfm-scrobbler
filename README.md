@@ -1,4 +1,5 @@
 # MusicScrobbler (macOS Last.fm Client)
+<img width="1012" height="800" alt="Screenshot 2026-03-04 at 19 16 00" src="https://github.com/user-attachments/assets/5fa1d024-a5ea-4127-a549-d4b4d9b1e4cf" />
 
 A modern, native macOS application built with SwiftUI that scrobbles music from the macOS "Music" app to Last.fm. It features a sleek interface inspired by the Last.fm website, providing real-time tracking, profile statistics, and library discovery.
 

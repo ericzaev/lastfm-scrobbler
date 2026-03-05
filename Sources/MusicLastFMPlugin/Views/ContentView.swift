@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var manager = ScrobblerManager()
+    @EnvironmentObject private var manager: ScrobblerManager
     var body: some View {
         Group {
             if manager.isAuthenticated { MainDashboardView(manager: manager) }
